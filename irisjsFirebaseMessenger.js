@@ -3,7 +3,7 @@ var request = require("request");
   Hook to show the page for modifying the mysql info
  */
 
-iris.modules.firebaseMessenger.globals.renderMessageForm = function (thisHook, data) {
+iris.modules.irisjsFirebaseMessenger.globals.renderMessageForm = function (thisHook, data) {
 
   data.schema.serverKey = {
     "type": "text",
@@ -27,7 +27,7 @@ iris.modules.firebaseMessenger.globals.renderMessageForm = function (thisHook, d
   thisHook.pass(data);
 };
 
-iris.modules.firebaseMessenger.globals.sendNotification = function (thisHook,params) {
+iris.modules.irisjsFirebaseMessenger.globals.sendNotification = function (thisHook,params) {
 
   request({
       url: 'https://fcm.googleapis.com/fcm/send',            
@@ -53,15 +53,15 @@ iris.modules.firebaseMessenger.globals.sendNotification = function (thisHook,par
 
 };
 
-iris.modules.firebaseMessenger.registerHook("hook_form_render__message", 0, function (thisHook, data) {
+iris.modules.irisjsFirebaseMessenger.registerHook("hook_form_render__message", 0, function (thisHook, data) {
 
-  iris.modules.firebaseMessenger.globals.renderMessageForm(thisHook, data);
+  iris.modules.irisjsFirebaseMessenger.globals.renderMessageForm(thisHook, data);
 
 });
 
-iris.modules.firebaseMessenger.registerHook("hook_form_submit__message", 0, function (thisHook, data) {
+iris.modules.irisjsFirebaseMessenger.registerHook("hook_form_submit__message", 0, function (thisHook, data) {
 
-  iris.modules.firebaseMessenger.globals.sendNotification(thisHook, thisHook.context.params);
+  iris.modules.irisjsFirebaseMessenger.globals.sendNotification(thisHook, thisHook.context.params);
 
 });
 
