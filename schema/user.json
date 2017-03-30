@@ -1,0 +1,36 @@
+{
+    "entityTypeName": "User",
+    "entityTypeDescription": "user",
+    "fields":{
+        "firebase_token":{
+            "fieldType":"Textfield",
+            "fieldTypeType":"String",
+            "label":"firebase_token",
+            "description":"",
+            "permissions":[],
+            "unique":false,
+            "weight":0
+        },
+        "latitude":{
+            "fieldType":"Textfield",
+            "fieldTypeType":"String",
+            "label":"latitude",
+            "description":"",
+            "permissions":[],
+            "unique":false,
+            "weight":0,
+            "about":"<b>Machine name:</b> latitude<br /><b>Field type:</b> Textfield",
+            "machineName":"latitude",
+            "edit_permissions":[],
+            "required":false
+        },
+        "longitude":{
+            "fieldType":"Textfield",
+            "label":"longitude",
+            "description":"",
+            "permissions":[],
+            "unique":false,
+            "weight":"0"
+        }
+    }
+}
