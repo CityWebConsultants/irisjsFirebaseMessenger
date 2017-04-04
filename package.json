@@ -1,0 +1,22 @@
+{
+  "name": "irisjs-firebase-messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "irisjsFirebaseMessenger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CityWebConsultants/irisjsFirebaseMessenger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CityWebConsultants/irisjsFirebaseMessenger/issues"
+  },
+  "homepage": "https://github.com/CityWebConsultants/irisjsFirebaseMessenger#readme",
+  "dependencies": {
+    "node-geocoder": "^3.16.0"
+  }
+}

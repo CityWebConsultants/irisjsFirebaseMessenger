@@ -1,4 +1,5 @@
 var request = require("request");
+var NodeGeocoder = require('node-geocoder');
 
 /**
  * Global function Send notification
@@ -90,6 +91,13 @@ iris.modules.irisjsFirebaseMessenger.globals.renderSettingForm = function (thisH
     "default": config.serverKey ? config.serverKey : ""
   };
 
+  data.schema.apiKey = {
+    "type": "text",
+    "title": "Api Key",
+    "required": true,
+    "default": config.apiKey ? config.apiKey : ""
+  };
+
   thisHook.pass(data);
 };
 
@@ -171,5 +179,49 @@ iris.route.get("/admin/config/firebase", menus.firebaseadmin, function (req, res
     iris.log("error", fail);
 
   });
+
+});
+
+iris.modules.irisjsFirebaseMessenger.registerHook("hook_entity_created", 1, function (thisHook, data) {
+
+  if((data.entityType == "alert") && data.longitude && data.latitude){
+
+    iris.readConfig('firebase', 'setting').then(function (config) {
+        var options = {
+          provider: 'google',
+          httpAdapter: 'https',
+          apiKey: 'AIzaSyCsTYaocLheFVf7ZH672ZylG6Z66u5WBpA',
+          formatter: null 
+        };
+        var geocoder = NodeGeocoder(options);
+        geocoder.reverse({lat:data.latitude, lon:data.longitude})
+        .then(function(res) {
+          var location = res[0];
+          data.city = location.city;
+          data.country = location.country;
+          data.full_address = location.formattedAddress;
+          iris.invokeHook("hook_entity_edit", thisHook.authPass, null, data)
+          .then(function (success) {
+            console.log("update work...");
+            thisHook.pass(data);
+
+          }, function (fail) {
+            console.log("Failed to update...");
+            console.log(fail);
+            thisHook.fail(fail);
+          });
+        })
+        .catch(function(err) {
+          iris.log("error", err);
+          thisHook.pass(data);
+        });
+
+
+    }, function (fail) {
+      thisHook.fail(fail);
+    });
+  }
+
+  thisHook.pass(data);
 
 });
